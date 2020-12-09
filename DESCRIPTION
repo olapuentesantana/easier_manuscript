@@ -1,0 +1,35 @@
+Package: easier
+Title: Evaluate patient immune response to ICBs through a systems approach
+Version: 1.0.3
+Authors@R: 
+    person(given = "First",
+           family = "Last",
+           role = c("aut", "cre"),
+           email = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: This package allows researchers to assess patients' likelihood to respond to ICB therapies. 
+             A machine learning model integrates patient transcriptomics data to gain insights into the 
+             effect of ICBs on the patient immune response. 
+Depends: R (>= 4.0), progeny, viper, DESeq2, ROCR, ggplot2, dorothea, preprocessCore, pdist, arules
+License: `use_mit_license()`, `use_gpl3_license()` or friends to
+    pick a license
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Imports: 
+    progeny,
+    remotes,
+    ROCR,
+    grDevices,
+    stats,
+    graphics,
+    ggplot2,
+    DESeq2,
+    utils,
+    pdist,
+    dorothea,
+    viper,
+    dplyr,
+    matrixStats,
+    preprocessCore
