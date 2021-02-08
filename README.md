@@ -14,9 +14,9 @@ For the essentials on how EaSIeR was developed, we recommend reading the followi
 
 ### Features of EaSIeR
 
-# Computation of system-based signatures of the tumor microenvironment
+### Computation of system-based signatures of the tumor microenvironment
 
-´´´R
+```R
 # Computation of cell fractions
 cell_fractions <- compute_cell_fractions(RNA.tpm=tpm)
 # Computation of pathway activity
@@ -27,21 +27,21 @@ tf_activity <- compute_TF_activity(RNA.tpm=tpm, remove.genes.ICB_proxies=FALSE)
 lrpairs_weights <- compute_LR_pairs(RNA.tpm=tpm, remove.genes.ICB_proxies=FALSE, compute.cytokines.pairs=FALSE, cancertype="pancan")
 # Computation of Cell-Cell scores
 ccpairs_scores <- compute_CC_pairs_grouped(lrpairs=lrpairs_weights$LRpairs, cancertype="pancan")
-´´´
+```
 
-# Computation of different hallmarks of the immune response
+### Computation of different hallmarks of the immune response
 
-´´´R
+```R
 tasks <- c("CYT", "Roh_IS", "chemokines", "Davoli_IS", "IFNy", "Ayers_expIS", "Tcell_inflamed", "RIR", "TLS")
 immune_response <- compute_gold_standards(RNA.tpm=tpm, list_gold_standards=tasks, cancertype=cancer_type, output_file_path=tmp_file_path)
-´´´
+```
 
-# Predictions of patients' immune response
-´´´R
+### Predictions of patients' immune response
+```R
 predictions_immune_response <- predict_immune_response(pathways = pathways_activity,
                                                        immunecells = cell_fractions,
                                                        lrpairs = lrpairs_weights,
                                                        tfs = tf_activity,
                                                        ccpairs = ccpairs_scores,
                                                        cancertype = cancertype)
-´´´
+```
