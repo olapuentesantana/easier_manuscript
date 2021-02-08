@@ -37,11 +37,11 @@ compare_immune_response <- function(predictions_immune_response = NULL,
                                     list_gold_standards,
                                     cancertype){
 
-  try(if(missing(cancertype)) stop("cancer type needs to be specified"))
-  try(if(is.null(predictions_immune_response)) stop("none predictions found"))
+  if(missing(cancertype)) stop("cancer type needs to be specified")
+  if(is.null(predictions_immune_response)) stop("none predictions found")
 
   # Check that folder exists, create folder otherwise
-  if(dir.exists(output_file_path) == F) {
+  if(dir.exists(output_file_path) == FALSE) {
     dir.create(file.path(output_file_path), showWarnings = FALSE)
     warning(paste0(sapply(strsplit(output_file_path, "/", fixed = T), tail , 1),
                    " folder does not exist, creating ", sapply(strsplit(output_file_path, "/", fixed = T), tail , 1), " folder"))
@@ -97,9 +97,9 @@ compare_immune_response <- function(predictions_immune_response = NULL,
   # ----------------
   # AUC predictions (when response available)
 
-  if (missing(real_patient_response) == F){
+  if (missing(real_patient_response) == FALSE){
 
-    try(if(all(levels(as.factor(real_patient_response)) %in% c("NR", "R")) == F) {
+    try(if(all(levels(as.factor(real_patient_response)) %in% c("NR", "R")) == FALSE) {
       stop("real_patient_response factor levels are not NR and R") })
 
     # Compute gold standards

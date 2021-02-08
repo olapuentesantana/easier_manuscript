@@ -26,8 +26,8 @@
 
 predict_immune_response <- function(pathways=NULL, immunecells=NULL, tfs=NULL, lrpairs=NULL, ccpairs=NULL, cancertype){
 
-  try(if(missing(cancertype)) stop("cancer type needs to be specified"))
-  try(if(all(is.null(pathways),is.null(immunecells), is.null(tfs), is.null(lrpairs), is.null(ccpairs))) stop("none signature specified"))
+  if(missing(cancertype)) stop("cancer type needs to be specified")
+  if(all(is.null(pathways),is.null(immunecells), is.null(tfs), is.null(lrpairs), is.null(ccpairs))) stop("none signature specified")
 
   # Simplify efforts: get data in lowercase variables
   pathways.cor <- pathways
@@ -57,7 +57,7 @@ predict_immune_response <- function(pathways=NULL, immunecells=NULL, tfs=NULL, l
 
   # Remove combinations with are not feasible due to missing views
   if(anyNA(miss_views)){
-    possible_combo <- possible_combo[,!is.na(colSums(possible_combo)), drop=F]
+    possible_combo <- possible_combo[,!is.na(colSums(possible_combo)), drop=FALSE]
   }
 
   # Views single
@@ -77,11 +77,6 @@ predict_immune_response <- function(pathways=NULL, immunecells=NULL, tfs=NULL, l
   combo_names <- sapply(1:length(view_combinations), function(X) {
     paste(names(view_combinations[[X]]), collapse = "_")
   })
-
-  # Immune cells features curation:
-  if (missing(immunecells) == F){
-    colnames(immunecells) <-  gsub(".","_", colnames(immunecells), fixed = T)
-  }
 
   all_predictions <- lapply(1:length(view_combinations), function(X){
 
