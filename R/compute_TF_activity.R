@@ -19,7 +19,7 @@
 #--------------------------------------------------------------------
 
 compute_TF_activity <- function(RNA.tpm,
-                                remove.genes.ICB_proxies=F){
+                                remove.genes.ICB_proxies=FALSE){
 
   # Gene expression data
   tpm <- RNA.tpm
@@ -58,7 +58,7 @@ compute_TF_activity <- function(RNA.tpm,
 
   # TF activity: run viper
   TF_activities <- dorothea::run_viper(input = E, regulons = regulons,
-                                       options = list(method = "none", minsize = 4, eset.filter = F, cores = 1, verbose=FALSE))
+                                       options = list(method = "none", minsize = 4, eset.filter = FALSE, cores = 1, verbose=FALSE))
 
   # Samples as rows, TFs as columns
   TF_activities <- t(TF_activities)

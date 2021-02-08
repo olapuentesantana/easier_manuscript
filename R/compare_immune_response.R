@@ -43,7 +43,7 @@ compare_immune_response <- function(predictions_immune_response = NULL,
   # Check that folder exists, create folder otherwise
   if(dir.exists(output_file_path) == FALSE) {
     dir.create(file.path(output_file_path), showWarnings = FALSE)
-    warning(paste0(sapply(strsplit(output_file_path, "/", fixed = T), tail , 1),
+    warning(paste0(sapply(strsplit(output_file_path, "/", fixed = TRUE), tail , 1),
                    " folder does not exist, creating ", sapply(strsplit(output_file_path, "/", fixed = T), tail , 1), " folder"))
   }
 

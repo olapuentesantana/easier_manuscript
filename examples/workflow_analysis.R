@@ -32,13 +32,13 @@ TF_activities <- compute_TF_activity(RNA.tpm = Riaz_data$tpm_RNAseq,
 LR_data <- compute_LR_pairs(RNA.tpm = Riaz_data$tpm_RNAseq,
                             remove.genes.ICB_proxies = FALSE,
                             compute.cytokines.pairs = FALSE,
-                            cancertype = cancertype)
+                            cancertype = "pancan")
 
 # ---------------------------------------------------------------------------
 # Computation of cell-cell interactions scores
 # ---------------------------------------------------------------------------
 CCpairs_grouped <- compute_CC_pairs_grouped(lrpairs = LR_data$LRpairs,
-                                            cancertype = cancertype)
+                                            cancertype = "pancan")
 
 # ---------------------------------------------------------------------------
 # Predict immune response
@@ -110,9 +110,4 @@ tasks_values <- compute_gold_standards(RNA.tpm = tpm,
                                        list_gold_standards = tasks,
                                        cancertype,
                                        output_file_path)
-
-
-
-
-
 
