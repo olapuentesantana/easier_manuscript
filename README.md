@@ -18,7 +18,15 @@ For the essentials on how EaSIeR was developed, we recommend reading the followi
 
 ### Features of EaSIeR
 
-#### Computation of system-based signatures of the tumor microenvironment
+#### Computation of quantitative descriptors of the tumor microenvironment
+
+| Quantitative Descriptors  | Descriptor conception  | Prior knowledge |
+|------------------------------------------------------------------------ | ------------------ | ------------------------------ |
+| Pathway activity  | Holland et al., BBAGRM, 2019; Schubert et al., Nat Commun, 2018 | Holland et al., BBAGRM, 2019; Schubert et al., Nat Commun, 2018 |
+| Immune cell quantification  | Finotello et al., Genome Med, 2019 | Finotello et al., Genome Med, 2019|
+| Transcription factor activity | Garcia-Alonso et al., Genome Res, 2019 | Garcia-Alonso et al., Genome Res, 2019 |
+| Ligand-Receptor pairs | Lapuente-Santana et al., bioRxiv, 2021 | Ramilowski et al., Nat Commun, 2015 |
+| Cell-cell interaction | Lapuente-Santana et al., bioRxiv, 2021 | Ramilowski et al.,  Nat Commun, 2015 |
 
 ```R
 # Computation of cell fractions
@@ -34,6 +42,18 @@ ccpairs_scores <- compute_CC_pairs_grouped(lrpairs=lrpairs_weights$LRpairs, canc
 ```
 
 #### Computation of different hallmarks of the immune response
+
+| Hallmark of the immune response | Original study |
+|------------------------------------------- | ------------------ |
+| Cytolytic activity (CYT) | Rooney et al, Cell, 2015 |
+| Roh immune score (Roh_IS) | Roh et al., Sci. Transl. Med., 2017 |
+| Chemokine signature (chemokines) | Messina et al., Nat. Sci. Rep., 2012 |
+| Davoli immune signature (Davoli_IS) | Davoli et al., Science 2017 |
+| IFNy signature (IFNy) | Ayers et al., JCI, 2017 |
+| Expanded immune signature (Ayers_expIS) | Ayers et al., JCI, 2017 |
+| T-cell inflamed signature (Tcell_inflamed) | Ayers et al., JCI, 2017 |
+| Repressed immune resistance (RIR) | Jerby-Arnon et al., Cell, 2018 |
+| Tertiary lymphoid structures signature (TLS) | Cabrita et al., Nature, 2020 |
 
 ```R
 tasks <- c("CYT", "Roh_IS", "chemokines", "Davoli_IS", "IFNy", "Ayers_expIS", "Tcell_inflamed", "RIR", "TLS")
