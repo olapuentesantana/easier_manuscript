@@ -1,6 +1,6 @@
 #' Compute Immune resistance program
 #'
-#' \code{compute_IRP} computes immune resistance program using the code provided by the authors.
+#' \code{compute.RIR} computes immune resistance program using the code provided by the authors.
 #' (Jerby-Arnon et al., 2018).
 #'
 #' @importFrom stats na.omit
@@ -15,7 +15,7 @@
 compute.RIR <- function(RNA.tpm){
 
   # Literature genes
-  RIR.read <- unique(unlist(res.sig))
+  RIR.read <- unique(unlist(res_sig))
   match_RIR.read <- match(RIR.read, rownames(RNA.tpm))
 
   if (anyNA(match_RIR.read)){
@@ -32,7 +32,7 @@ compute.RIR <- function(RNA.tpm){
   r$genes <- rownames(log2.RNA.tpm)
 
   # Apply function to calculate OE:
-  res.scores <- get_OE_bulk(r, gene.sig = res.sig)
+  res.scores <- get_OE_bulk(r, gene.sig = res_sig)
 
   # Merge as recommend by authors
   res <- cbind.data.frame(excF.up = rowMeans(res.scores[, c("exc.up", "exc.seed.up")]),
