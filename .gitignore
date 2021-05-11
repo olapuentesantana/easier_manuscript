@@ -22,3 +22,5 @@ R/sysdata.rda
 # Description of example Riaz data (not make it public)
 R/allData_riaz.R
 
+# R project file)
+easier.Rproj
