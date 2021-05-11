@@ -13,6 +13,6 @@ compute.RIR(RNA.tpm)
 numeric matrix with rows=samples and columns=IRP
 }
 \description{
-\code{compute_IRP} computes immune resistance program using the code provided by the authors.
+\code{compute.RIR} computes immune resistance program using the code provided by the authors.
 (Jerby-Arnon et al., 2018).
 }

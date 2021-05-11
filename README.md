@@ -6,7 +6,11 @@
 
 ```R
 library(devtools)
-install_github("olapuentesantana/easier_manuscript")
+```
+
+First you will need to clone the repositroy and install it using `devtools::install()`
+
+```R
 library(easier)
 ```
 
