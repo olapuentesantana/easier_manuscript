@@ -33,15 +33,15 @@ compute_LR_pairs <- function(RNA.tpm,
   # Genes to remove according to all ICB proxy's
   if (remove.genes.ICB_proxies) {
     message("Removing signatures genes for proxy's of ICB response  \n")
-    idy <- stats::na.exclude(match(all_genes_to_remove, rownames(gene_expr)))
+    idy <- stats::na.exclude(match(cor_genes_to_remove, rownames(gene_expr)))
     gene_expr <- gene_expr[-idy,]
   }
 
   gene_expr <- as.data.frame(gene_expr)
 
   # Cancer-specific LR pairs network
-  intercell.network <- intercell.network.cancer.spec[[cancertype]]
-  LR_pairs <- unique(paste0(intercell.network$ligands, "_", intercell.network$receptors))
+  intercell_network <- intercell_network_cancer_spec[[cancertype]]
+  LR_pairs <- unique(paste0(intercell_network$ligands, "_", intercell_network$receptors))
 
   # Compute L-R pairs
   LR.pairs.computed <- do.call(rbind, lapply(1:length(LR_pairs), function(x){
@@ -84,6 +84,9 @@ compute_LR_pairs <- function(RNA.tpm,
       }
     }
     LR.data <- list(LRpairs = as.data.frame(LR.pairs.computed), CYTOKINEpairs = as.data.frame(CYTOKINE.pairs.computed))
+
+    message("L-R pairs computed \n")
+    message("Cytokine pairs computed \n")
   }else{
 
     # Apply grouping to LRpairs data
@@ -100,10 +103,8 @@ compute_LR_pairs <- function(RNA.tpm,
       LR.pairs.computed <- LR.pairs.computed[, -pos_remove]
     }
     LR.data <- list(LRpairs = as.data.frame(LR.pairs.computed))
+    message("L-R pairs computed \n")
   }
-
-  message("L-R pairs computed \n")
-  message("Cytokine pairs computed \n")
   return(LR.data)
 }
 

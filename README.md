@@ -7,6 +7,7 @@
 ```R
 library(devtools)
 install_github("olapuentesantana/easier_manuscript")
+library(easier)
 ```
 
 ### Basic info on EaSIeR
@@ -20,7 +21,7 @@ For the essentials on how EaSIeR was developed, we recommend reading the followi
 # Computation of cell fractions
 cell_fractions <- compute_cell_fractions(RNA.tpm=tpm)
 # Computation of pathway activity
-pathways_activity <- compute_pathways_scores(RNA.countss=counts, remove.genes.ICB_proxies=TRUE)
+pathways_activity <- compute_pathways_scores(RNA.counts=counts, remove.genes.ICB_proxies=TRUE)
 # Computation of TF activity
 tf_activity <- compute_TF_activity(RNA.tpm=tpm, remove.genes.ICB_proxies=FALSE)
 # Computation of LR pairs weights
