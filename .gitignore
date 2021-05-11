@@ -20,7 +20,7 @@ data-raw/save_data_into_sysdata.R
 data/Riaz_data.rda
 
 # Model optimization parameters (heavy data file)
-#R/sysdata.rda
+R/sysdata.rda
 
 # Description of example Riaz data (not make it public)
 R/allData_riaz.R
