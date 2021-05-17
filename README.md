@@ -8,7 +8,7 @@
 library(devtools)
 ```
 
-First you will need to clone the repositroy and install it using `devtools::install()`. Then, load the namespace of `easier` package:
+First you will need to clone the repository using git and then install the package using `devtools::install()`. Then, load the namespace of `easier` package:
 ```R
 library(easier)
 ```
