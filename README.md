@@ -4,7 +4,7 @@
  
 ### How to install EaSIeR
 
-Because of the current repository containing large files (i.e. using git-lfs), we first need to clone the repository using git and install git-lfs (instructions below are specific for macOS, please visit the main git lfs page [here](https://docs.github.com/en/github/managing-large-files/installing-git-large-file-storage) to install git lfs depending on your OS. Finally within the repository directory we need to run ´git lfs pull´ to replace the text pointers with the actual data.
+Because of the current repository containing large files (i.e. using git-lfs), we first need to clone the repository using git and install git-lfs (instructions below are specific for macOS, please visit the main git-lfs page [here](https://docs.github.com/en/github/managing-large-files/installing-git-large-file-storage) to install git-lfs depending on your OS. Finally, within the repository directory we need to run ´git lfs pull` to replace the text pointers with the actual data files.
 
 Open Terminal and run this command:
 ```{bash}
@@ -16,7 +16,7 @@ git lfs pull
 Then, in R:
 ```{r}
 library(devtools)
-devtools::install(".")
+devtools::install("path/to/easier_manuscript/")
 library(easier)
 ```
 
