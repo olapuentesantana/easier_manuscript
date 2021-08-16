@@ -21,7 +21,7 @@ library(easier)
 ```
 
 ### Basic info on EaSIeR
-For the essentials on how EaSIeR was developed, we recommend reading the following preprint [article](https://www.biorxiv.org/content/10.1101/2021.02.05.429977v1).
+For the essentials on how EaSIeR was developed, we recommend reading the reference paper [article](https://www.cell.com/patterns/fulltext/S2666-3899(21)00126-4).
 
 ### Features of EaSIeR
 
