@@ -69,10 +69,10 @@ immune_response <- compute_gold_standards(RNA.tpm=tpm, list_gold_standards=tasks
 
 #### Predictions of patients' immune response
 ```R
-predictions_immune_response <- predict_immune_response(pathways = pathways_activity,
+predictions_immune_response <- predict_immune_response(pathways = pathways_activity$scores,
                                                        immunecells = cell_fractions,
-                                                       lrpairs = lrpairs_weights,
-                                                       tfs = tf_activity,
-                                                       ccpairs = ccpairs_scores,
+                                                       lrpairs = lrpairs_weights$LRpairs,
+                                                       tfs = tf_activity$scores,
+                                                       ccpairs = ccpairs_scores$score,
                                                        cancertype = cancertype)
 ```
