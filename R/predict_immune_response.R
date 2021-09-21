@@ -29,19 +29,14 @@ predict_immune_response <- function(pathways=NULL, immunecells=NULL, tfs=NULL, l
   if(missing(cancertype)) stop("cancer type needs to be specified")
   if(all(is.null(pathways),is.null(immunecells), is.null(tfs), is.null(lrpairs), is.null(ccpairs))) stop("none signature specified")
 
-  # Simplify efforts: get data in lowercase variables
-  pathways.cor <- pathways
-  lrpairs.spec.pc <- lrpairs
-  ccpairsgroupedscores.spec.pc <- ccpairs
-
   # Initialize variables
-  views <- c(Pathways.cor = 'gaussian',
-             ImmuneCells = 'gaussian',
-             TFs = 'gaussian',
-             LRpairs.spec.pc = 'gaussian',
-             CCpairsGroupedScores.spec.pc = 'gaussian')
-
-  view_combinations <- NULL
+  views <- c(
+    pathways = "gaussian",
+    immunecells = "gaussian",
+    tfs = "gaussian",
+    lrpairs = "gaussian",
+    ccpairs = "gaussian"
+  )
 
   algorithm <-  c("Multi_Task_EN") #,"BEMKL")
 
@@ -52,31 +47,14 @@ predict_immune_response <- function(pathways=NULL, immunecells=NULL, tfs=NULL, l
                   ifelse(missing(lrpairs), NA, 4),
                   ifelse(missing(ccpairs), NA, 5))
 
-  # Possible combinations
-  possible_combo <- combn(miss_views, m = 2)[,1:9]
-
-  # Remove combinations with are not feasible due to missing views
-  if(anyNA(miss_views)){
-    possible_combo <- possible_combo[,!is.na(colSums(possible_combo)), drop=FALSE]
-  }
-
-  # Views single
-  view_simples <- lapply(miss_views[!is.na(miss_views)], function(X){
-    tmp <- views[X] ; return(tmp)
+  # Single views
+  view_simples <- lapply(miss_views[!is.na(miss_views)], function(X) {
+    tmp <- views[X]
+    return(tmp)
   })
 
-  # Views combination
-  if(is.matrix(possible_combo) & dim(possible_combo)[2] > 1) {
-    view_combinations <- lapply(1:ncol(possible_combo), function(X){
-      tmp <- views[possible_combo[,X]] ; return(tmp)
-    })
-  }
-  view_combinations <- c(view_simples, view_combinations)
-
-  # Remove unavailable combo
-  combo_names <- sapply(1:length(view_combinations), function(X) {
-    paste(names(view_combinations[[X]]), collapse = "_")
-  })
+  # All corresponding views
+  view_combinations <- view_simples
 
   all_predictions <- lapply(1:length(view_combinations), function(X){
 
@@ -108,7 +86,7 @@ predict_immune_response <- function(pathways=NULL, immunecells=NULL, tfs=NULL, l
     names(summary_alg) <- algorithm
     return(summary_alg)
   })
-  names(all_predictions) <- combo_names
+  names(all_predictions) <- names(unlist(view_combinations))
   return(all_predictions)
 
 }

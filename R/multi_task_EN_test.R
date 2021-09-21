@@ -30,8 +30,7 @@ multi_task_EN_test <- function(x.test, coef.matrix){
   coef <- coef[pos,, drop = FALSE]
 
   if (length(coef) > 1){
-    Slope <-  coef
-    rownames(Slope) <- gsub(" ","",rownames(Slope)) # In case of Dorothea is needed, do not affect the other features
+    Slope <- coef
     fit.pred <- t(matrix(as.matrix(Intercept), nrow = ncol(Slope), ncol = nrow(x.test.combo))
                   + t(Slope) %*% t(as.matrix(x.test.combo[, rownames(Slope)])))
   }else{

@@ -70,14 +70,14 @@ compare_immune_response <- function(predictions_immune_response = NULL,
   # All views
   all_color_views <- vector("character", length = length(view_combinations))
   all_color_views <- c("#52ac68","#6a70d7","#bbb442",
-                      "#5b3788","#72a646","#c972c4",
-                      "#43c8ac","#d25543","#6d8dd7",
-                      "#cd8232","#b1457b","#9b843b",
-                      "#ba4758","#a24e2e")
+                      "#5b3788","#72a646") #,"#c972c4",
+                      #"#43c8ac","#d25543","#6d8dd7",
+                      #"#cd8232","#b1457b","#9b843b",
+                      #"#ba4758","#a24e2e")
   names(all_color_views) <- view_combinations
 
   # all_color_views <- c("#6CD8CB","#CC6AF2","salmon","#01AD3F","#9E1D3F")
-  # names(all_color_views) <- c("Pathways","ImmuneCells", "TFs", "LRpairs.spec.pc","CCpairsGroupedScores.spec.pc")
+  # names(all_color_views) <- c("Pathways","immunecells", "tfs", "lrpairs","ccpairs")
 
 
   # Selected views
@@ -99,8 +99,9 @@ compare_immune_response <- function(predictions_immune_response = NULL,
 
   if (missing(real_patient_response) == FALSE){
 
-    try(if(all(levels(as.factor(real_patient_response)) %in% c("NR", "R")) == FALSE) {
-      stop("real_patient_response factor levels are not NR and R") })
+    if(all(levels(as.factor(real_patient_response)) %in% c("NR", "R")) == FALSE) {
+      stop("real_patient_response factor levels are not NR and R")
+    }
 
     # Compute gold standards
     default_list_gold_standards <- c(names(color_tasks), "CTLA4", "PD1", "PDL1")
@@ -387,12 +388,12 @@ compare_immune_response <- function(predictions_immune_response = NULL,
 
             if (main_view == "overall_median"){
 
-              overall_df <- apply(rbind(df_overall$Pathways.cor, df_overall$ImmuneCells, df_overall$LRpairs.spec.pc,
-                                        df_overall$TFs, df_overall$CCpairsGroupedScores.spec.pc), 2, median)
+              overall_df <- apply(rbind(df_overall$pathways, df_overall$immunecells, df_overall$lrpairs,
+                                        df_overall$tfs, df_overall$ccpairs), 2, median)
             }else if (main_view == "overall_mean"){
 
-              overall_df <- apply(rbind(df_overall$Pathways.cor, df_overall$ImmuneCells, df_overall$LRpairs.spec.pc,
-                                        df_overall$TFs, df_overall$CCpairsGroupedScores.spec.pc), 2, mean)
+              overall_df <- apply(rbind(df_overall$pathways, df_overall$immunecells, df_overall$lrpairs,
+                                        df_overall$tfs, df_overall$ccpairs), 2, mean)
             }
 
             pred <- ROCR::prediction(overall_df, labels[,1], label.ordering = c("NR", "R"))
@@ -534,22 +535,22 @@ compare_immune_response <- function(predictions_immune_response = NULL,
       #ggplot2::scale_alpha_manual(values = c(1,1,0.6,0.8)) +
       ggplot2::scale_x_discrete(labels = c("overall_mean" = "Overall\n(mean) views", "overall_median" = "Overall\n(median) views",
                                            "consensus_median" = "Overall\n(median) tasks", "consensus_mean" = "Overall\n(mean) tasks",
-                                           "ImmuneCells" = "Cell fractions",
-                                           "Pathways.cor" = "Pathways",
-                                           "TFs" = "TFs",
-                                           "LRpairs.spec.pc" = "L-R pairs",
-                                           "CCpairsGroupedScores.spec.pc" = "C-C pairs",
-                                           "ImmuneCells_CCpairsGroupedScores.spec.pc" = "Cell fractions + C-C pairs",
-                                           "ImmuneCells_LRpairs.spec.pc" = "Cell fractions + L-R pairs",
-                                           "ImmuneCells_TFs" = "Cell fractions + TFs",
-                                           "Pathways.cor_CCpairsGroupedScores.spec.pc" = "Pathways + C-C pairs",
-                                           "Pathways.cor_ImmuneCells" = "Pathways + Cell fractions",
-                                           "Pathways.cor_LRpairs.spec.pc" = "Pathways + L-R pairs",
-                                           "Pathways.cor_TFs" = "Pathways + TFs",
-                                           "TFs_CCpairsGroupedScores.spec.pc" = "TFs + C-C pairs",
-                                           "TFs_LRpairs.spec.pc" = "TFs + L-R pairs",
+                                           "immunecells" = "Cell fractions",
+                                           "pathways" = "Pathways",
+                                           "tfs" = "Tfs",
+                                           "lrpairs" = "L-R pairs",
+                                           "ccpairs" = "C-C pairs",
+                                           "immunecells_ccpairs" = "Cell fractions + C-C pairs",
+                                           "immunecells_lrpairs" = "Cell fractions + L-R pairs",
+                                           "immunecells_tfs" = "Cell fractions + TFs",
+                                           "pathways_ccpairs" = "Pathways + C-C pairs",
+                                           "pathways_immunecells" = "Pathways + Cell fractions",
+                                           "pathways_lrpairs" = "Pathways + L-R pairs",
+                                           "pathways_tfs" = "Pathways + TFs",
+                                           "tfs_ccpairs" = "TFs + C-C pairs",
+                                           "tfs_lrpairs" = "TFs + L-R pairs",
                                            "Multi_Task_EN" = "Gold_Standard",
-                                           "Pathways_ImmuneCells_TFs_LRpairs" = "Combo\nall views",
+                                           "Pathways_immunecells_tfs_LRpairs" = "Combo\nall views",
                                            "CTLA4" = "\nCTLA4", "PD1" = "\nPD1", "PDL1" = "\nPDL1")) +
       ggplot2::theme(panel.grid = element_blank(), panel.background = element_rect(fill = NA)) +
       ggplot2::theme_bw()+
@@ -571,30 +572,30 @@ compare_immune_response <- function(predictions_immune_response = NULL,
     # Plot ROC curve
 
     all_color_views <- c("#6CD8CB","#CC6AF2","#01AD3F","salmon","#9E1D3F")
-    names(all_color_views) <- c("Pathways.cor","ImmuneCells", "TFs", "LRpairs.spec.pc","CCpairsGroupedScores.spec.pc")
+    names(all_color_views) <- c("pathways","immunecells", "tfs", "lrpairs","ccpairs")
 
     pdf(paste0(output_file_path,"/Final/ROC_curve_all_views_and_overall.pdf"), width = 10, height = 10)
     par(cex.axis=1.6, mar = c(5, 5, 5, 5), col.lab="black")
 
     # Single views
-    ROCR::plot(ROC_info$Pathways.cor$Multi_Task_EN$common_mean[["1se.mse"]]$Curve[[1]],
-               avg = "threshold", col = all_color_views["Pathways.cor"], lwd = 3, type = "S",
+    ROCR::plot(ROC_info$pathways$Multi_Task_EN$common_mean[["1se.mse"]]$Curve[[1]],
+               avg = "threshold", col = all_color_views["pathways"], lwd = 3, type = "S",
                cex.lab=1.6, ylab="True Positive Rate", xlab="False Positive Rate")
 
-    ROCR::plot(ROC_info$ImmuneCells$Multi_Task_EN$common_mean[["1se.mse"]]$Curve[[1]],
-               avg = "threshold", col = all_color_views["ImmuneCells"], lwd = 3, type = "S",
+    ROCR::plot(ROC_info$immunecells$Multi_Task_EN$common_mean[["1se.mse"]]$Curve[[1]],
+               avg = "threshold", col = all_color_views["immunecells"], lwd = 3, type = "S",
                cex.lab=1.6, ylab="True Positive Rate", xlab="False Positive Rate", add = TRUE)
 
-    ROCR::plot(ROC_info$TFs$Multi_Task_EN$common_mean[["1se.mse"]]$Curve[[1]],
-               avg = "threshold", col = all_color_views["TFs"], lwd = 3, type = "S",
+    ROCR::plot(ROC_info$tfs$Multi_Task_EN$common_mean[["1se.mse"]]$Curve[[1]],
+               avg = "threshold", col = all_color_views["tfs"], lwd = 3, type = "S",
                cex.lab=1.6, ylab="True Positive Rate", xlab="False Positive Rate", add = TRUE)
 
-    ROCR::plot(ROC_info$LRpairs.spec.pc$Multi_Task_EN$common_mean[["1se.mse"]]$Curve[[1]],
-               avg = "threshold", col = all_color_views["LRpairs.spec.pc"], lwd = 3, type = "S",
+    ROCR::plot(ROC_info$lrpairs$Multi_Task_EN$common_mean[["1se.mse"]]$Curve[[1]],
+               avg = "threshold", col = all_color_views["lrpairs"], lwd = 3, type = "S",
                cex.lab=1.6, ylab="True Positive Rate", xlab="False Positive Rate", add = TRUE)
 
-    ROCR::plot(ROC_info$CCpairsGroupedScores.spec.pc$Multi_Task_EN$common_mean[["1se.mse"]]$Curve[[1]],
-               avg = "threshold", col = all_color_views["CCpairsGroupedScores.spec.pc"], lwd = 3, type = "S",
+    ROCR::plot(ROC_info$ccpairs$Multi_Task_EN$common_mean[["1se.mse"]]$Curve[[1]],
+               avg = "threshold", col = all_color_views["ccpairs"], lwd = 3, type = "S",
                cex.lab=1.6, ylab="True Positive Rate", xlab="False Positive Rate", add = TRUE)
 
 
@@ -611,21 +612,21 @@ compare_immune_response <- function(predictions_immune_response = NULL,
     #abline(a=0, b=1, lty = 3, lwd = 2, col = "antiquewhite4")
     legend(x = 0.72,y = 0.57,
            legend = c(paste0("Pathways","\n(AUC=", round(subset(AUC.mean.sd, Task == "common_mean"
-                      & Model == "1se.mse" & View == "Pathways.cor" & Alg == "Multi_Task_EN")$AUC.median, 3),")"),
+                      & Model == "1se.mse" & View == "pathways" & Alg == "Multi_Task_EN")$AUC.median, 3),")"),
                       paste0("Cell fractions","\n(AUC=", round(subset(AUC.mean.sd, Task == "common_mean"
-                      & Model == "1se.mse" & View == "ImmuneCells" & Alg == "Multi_Task_EN")$AUC.median, 3),")"),
+                      & Model == "1se.mse" & View == "immunecells" & Alg == "Multi_Task_EN")$AUC.median, 3),")"),
                       paste0("TFs","\n(AUC=", round(subset(AUC.mean.sd, Task == "common_mean"
-                      & Model == "1se.mse" & View == "TFs" & Alg == "Multi_Task_EN")$AUC.median, 3),")"),
+                      & Model == "1se.mse" & View == "tfs" & Alg == "Multi_Task_EN")$AUC.median, 3),")"),
                       paste0("L-R pairs","\n(AUC=", round(subset(AUC.mean.sd, Task == "common_mean"
-                      & Model == "1se.mse" & View == "LRpairs.spec.pc" & Alg == "Multi_Task_EN")$AUC.median, 3),")"),
+                      & Model == "1se.mse" & View == "lrpairs" & Alg == "Multi_Task_EN")$AUC.median, 3),")"),
                       paste0("C-C pairs","\n(AUC=", round(subset(AUC.mean.sd, Task == "common_mean"
-                      & Model == "1se.mse" & View == "CCpairsGroupedScores.spec.pc" & Alg == "Multi_Task_EN")$AUC.median, 3),")"),
+                      & Model == "1se.mse" & View == "ccpairs" & Alg == "Multi_Task_EN")$AUC.median, 3),")"),
                       # paste0("Transcriptomics","\n(AUC=", round(subset(AUC.mean.sd, Task == "common_mean"
                       # & Model == "1se.mse" & View == "transcript" & Alg == "Multi_Task_EN")$AUC.median, 3),")"),
                       paste0("\nOverall tasks","\n(AUC=", round(subset(AUC.mean.sd_GS, Model == "1se.mse" & View == "consensus_mean")$AUC.median, 3),")"),
                       paste0("\nOverall views","\n(AUC=", round(subset(AUC.mean.sd, Model == "1se.mse" & View == "overall_mean")$AUC.median, 3),")")),
 
-           col = c(all_color_views[c("Pathways.cor", "ImmuneCells","TFs", "LRpairs.spec.pc", "CCpairsGroupedScores.spec.pc")],
+           col = c(all_color_views[c("pathways", "immunecells","tfs", "lrpairs", "ccpairs")],
                    as.vector(color_consensus)[2], as.vector(color_overalls)[2]), lty = 1, lwd =4, cex = 1.1, bty = "n")
     title(main = paste0("n=", length(real_patient_response)," (R=",n_R,"; ","NR=",n_NR,")"))
 
