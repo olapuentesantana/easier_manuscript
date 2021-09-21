@@ -32,8 +32,8 @@ For the essentials on how EaSIeR was developed, we recommend reading the referen
 | Pathway activity  | Holland et al., BBAGRM, 2019; Schubert et al., Nat Commun, 2018 | Holland et al., BBAGRM, 2019; Schubert et al., Nat Commun, 2018 |
 | Immune cell quantification  | Finotello et al., Genome Med, 2019 | Finotello et al., Genome Med, 2019|
 | Transcription factor activity | Garcia-Alonso et al., Genome Res, 2019 | Garcia-Alonso et al., Genome Res, 2019 |
-| Ligand-Receptor pairs | Lapuente-Santana et al., bioRxiv, 2021 | Ramilowski et al., Nat Commun, 2015 |
-| Cell-cell interaction | Lapuente-Santana et al., bioRxiv, 2021 | Ramilowski et al.,  Nat Commun, 2015 |
+| Ligand-Receptor pairs | Lapuente-Santana et al., Patterns, 2021 | Ramilowski et al., Nat Commun, 2015 |
+| Cell-cell interaction | Lapuente-Santana et al., Patterns, 2021 | Ramilowski et al.,  Nat Commun, 2015 |
 
 ```R
 # Computation of cell fractions
